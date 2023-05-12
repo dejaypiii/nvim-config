@@ -7,6 +7,7 @@
 -- *  Basic Settings
 -- *******************************************************************************
 vim.g.mapleader = " "
+vim.g.localleader = " "
 vim.opt.termguicolors = true
 vim.opt.showmatch = true
 vim.opt.ignorecase = true
@@ -35,7 +36,7 @@ if not vim.loop.fs_stat(lazypath) then
         "clone",
         "--filter=blob:none",
         "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
+        "--branch=stable",
         lazypath,
     })
 end
@@ -55,15 +56,25 @@ require("lazy").setup({
     "hrsh7th/nvim-cmp",
     "SirVer/ultisnips",
     "quangnguyen30192/cmp-nvim-ultisnips",
-    -- "folke/which-key.nvim",
     { "williamboman/mason.nvim", build = ":MasonUpdate" },
--- TODO(djp): recommended mason plugins
--- LSP: lspconfig & mason-lspconfig.nvim
--- DAP: nvim-dap
--- Linters: null-ls.nvim or nvim-lint
--- Formatters: null-ls.nvim or formatter.nvim
+    "williamboman/mason-lspconfig.nvim",
+    "mfussenegger/nvim-dap",
+    "mfussenegger/nvim-lint",
+    "mhartington/formatter.nvim",
     { "folke/neoconf.nvim", cmd = "Neoconf" },
     "folke/neodev.nvim",
+    {
+        "folke/which-key.nvim",
+        config = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+            require("which-key").setup({
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            })
+        end,
+    }
 -- TODO(djp) checkout following plugins
 -- nvim-lsputils
 -- nvim-surround
