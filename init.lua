@@ -74,6 +74,14 @@ require("lazy").setup({
                 -- refer to the configuration section below
             })
         end,
+    },
+    {
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.1",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons"
+        }
     }
 -- TODO(djp) checkout following plugins
 -- nvim-lsputils
