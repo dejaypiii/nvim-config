@@ -8,6 +8,8 @@
 -- *******************************************************************************
 vim.g.mapleader = " "
 vim.g.localleader = " "
+vim.g.loaded_netrw = 1 -- tree recommendation
+vim.g.loaded_netrwPlugin = 1 -- tree recommendation
 vim.opt.termguicolors = true
 vim.opt.showmatch = true
 vim.opt.ignorecase = true
@@ -59,8 +61,7 @@ require("lazy").setup({
     { "williamboman/mason.nvim", build = ":MasonUpdate" },
     "williamboman/mason-lspconfig.nvim",
     "mfussenegger/nvim-dap",
-    "mfussenegger/nvim-lint",
-    "mhartington/formatter.nvim",
+    { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
     { "folke/neoconf.nvim", cmd = "Neoconf" },
     "folke/neodev.nvim",
     {
@@ -94,22 +95,45 @@ require("lazy").setup({
         dependencies = { "nvim-tree/nvim-web-devicons" }
     },
     { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
--- TODO(djp) checkout following plugins
--- nvim-surround
--- nvim-tree
--- neoproj?
--- barbar ?
--- nvim-web-devicons ?
--- abbreinder.nvim ?!?!
--- mkdnflow.nvim ?!?!
--- neoorg ?
--- orgmode ?
--- mkdir
--- cheatsheet
--- package-info-nvim
--- crates.nvim
--- gitsigns
--- sort ?
+    { "lewis6991/gitsigns.nvim" },
+    {
+        "romgrk/barbar.nvim",
+        dependencies = {
+            "lewis6991/gitsigns.nvim",
+            "nvim-tree/nvim-web-devicons",
+        }
+    },
+    "jghauser/mkdir.nvim",
+    {
+        "sudormrfbin/cheatsheet.nvim",
+        dependencies = {
+            "nvim-lua/popup.nvim",
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim",
+        }
+    },
+    {
+        "saecki/crates.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        event = { "BufRead Cargo.toml" },
+        lazy = true,
+    },
+    {
+        "vuki656/package-info.nvim",
+        dependencies =  { "MunifTanjim/nui.nvim" },
+        event = { "BufRead package.json" },
+        lazy = true,
+    },
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    }
 })
 
 -- *  Set up nvim-cmp
@@ -136,8 +160,8 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
         { name = "ultisnips" },
-    }, {
         { name = "buffer" },
+        { name = "crates" },
     })
 })
 
@@ -182,11 +206,32 @@ require("neodev").setup({
 require("lualine").setup()
 
 require("nvim-tree").setup()
+
+require("gitsigns").setup()
+
+local null_ls = require("null-ls")
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.stylua,
+        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.completion.spell,
+    },
+})
+
+require('crates').setup {
+    null_ls = {
+        enabled = true,
+        name = "crates.nvim",
+    },
+}
+
+require('package-info').setup()
+
 -- *******************************************************************************
 -- *  Set up lspconfig.
 -- *******************************************************************************
 local lspconfig = require('lspconfig')
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 lspconfig.lua_ls.setup({
     settings = {
         Lua = {
@@ -207,3 +252,14 @@ vim.cmd.colorscheme("catppuccin")
 -- *******************************************************************************
 vim.keymap.set("i", "jk", "<esc>")
 -- TODO(djp): keymaps - reg with which-key
+-- TODO(djp): keymaps for telescope
+-- TODO(djp): keymaps for tree
+-- TODO(djp): keymaps for gitsigns
+-- TODO(djp): keymaps for lint
+-- TODO(djp): keymaps for format
+-- TODO(djp): keymaps for lsp/cmp
+-- TODO(djp): keymaps for which-key?!
+
+
+-- TODO(djp): refactor config into separate files (plugin folder?)
+-- TODO(djp): reevaluate which plugins should be lazy loadaed
