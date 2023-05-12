@@ -92,7 +92,8 @@ require("lazy").setup({
     {
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" }
-    }
+    },
+    { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
 -- TODO(djp) checkout following plugins
 -- nvim-surround
 -- nvim-tree
@@ -178,7 +179,9 @@ require("neodev").setup({
     -- add any options here, or leave empty to use the default settings
 })
 
-require('lualine').setup()
+require("lualine").setup()
+
+require("nvim-tree").setup()
 -- *******************************************************************************
 -- *  Set up lspconfig.
 -- *******************************************************************************
@@ -203,3 +206,4 @@ vim.cmd.colorscheme("catppuccin")
 -- *  Key bindings
 -- *******************************************************************************
 vim.keymap.set("i", "jk", "<esc>")
+-- TODO(djp): keymaps - reg with which-key
