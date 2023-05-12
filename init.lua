@@ -82,14 +82,21 @@ require("lazy").setup({
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons"
         }
+    },
+    {
+        "RishabhRD/nvim-lsputils",
+        dependencies = {
+            "RishabhRD/popfix"
+        }
+    },
+    {
+        "nvim-lualine/lualine.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" }
     }
 -- TODO(djp) checkout following plugins
--- nvim-lsputils
 -- nvim-surround
--- telescope
 -- nvim-tree
 -- neoproj?
--- nvim-lualine
 -- barbar ?
 -- nvim-web-devicons ?
 -- abbreinder.nvim ?!?!
@@ -171,6 +178,7 @@ require("neodev").setup({
     -- add any options here, or leave empty to use the default settings
 })
 
+require('lualine').setup()
 -- *******************************************************************************
 -- *  Set up lspconfig.
 -- *******************************************************************************
