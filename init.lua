@@ -22,7 +22,6 @@ vim.opt.shiftwidth = 4
 vim.opt.autoindent = true
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.wildmode = { 'longest', 'list' }
 vim.opt.mouse = "a"
@@ -104,41 +103,6 @@ cmp.setup.cmdline(":", {
         { name = "cmdline" }
     })
 })
-
-require("mason").setup()
-
--- It's important that you set up neoconf.nvim BEFORE nvim-lspconfig.
-require("neoconf").setup({
-    -- override any of the default settings here
-})
-
-require("neodev").setup({
-    -- add any options here, or leave empty to use the default settings
-})
-
-require("lualine").setup()
-
-require("nvim-tree").setup()
-
-require("gitsigns").setup()
-
-local null_ls = require("null-ls")
-null_ls.setup({
-    sources = {
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.diagnostics.eslint,
-        null_ls.builtins.completion.spell,
-    },
-})
-
-require('crates').setup {
-    null_ls = {
-        enabled = true,
-        name = "crates.nvim",
-    },
-}
-
-require('package-info').setup()
 
 -- *******************************************************************************
 -- *  Set up lspconfig.
