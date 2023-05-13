@@ -65,7 +65,8 @@ lspconfig.lua_ls.setup({
 -- *  Key bindings
 -- *******************************************************************************
 vim.keymap.set("i", "jk", "<esc>")
--- TODO(djp): keymaps - reg with which-key
+vim.keymap.set("n", "<leader>ce", ":e ~/.config/nvim<cr>")
+-- TODO(djp): keymaps - reg with which-ke<cr>y
 -- TODO(djp): keymaps for telescope
 -- TODO(djp): keymaps for tree
 -- TODO(djp): keymaps for gitsigns
@@ -74,7 +75,3 @@ vim.keymap.set("i", "jk", "<esc>")
 -- TODO(djp): keymaps for lsp/cmp
 -- TODO(djp): keymaps for which-key?!
 
--- *******************************************************************************
--- *  Functions
--- *******************************************************************************
--- TODO(djp): Add custom command to edit config
