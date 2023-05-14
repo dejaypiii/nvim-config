@@ -3,8 +3,13 @@
 -- *******************************************************************************
 
 local lspconfig = require('lspconfig')
+local on_attach = function(client)
+    require 'completion'.on_attach(client)
+end
 -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+lspconfig.clangd.setup({})
 lspconfig.lua_ls.setup({
+    on_attach = on_attach,
     settings = {
         Lua = {
             completion = {
@@ -14,9 +19,29 @@ lspconfig.lua_ls.setup({
     }
 })
 lspconfig.rust_analyzer.setup {
-  -- Server-specific settings. See `:help lspconfig-setup`
-  settings = {
-    ['rust-analyzer'] = {},
-  },
+    on_attach = on_attach,
+    -- Server-specific settings. See `:help lspconfig-setup`
+    settings = {
+        ["rust-analyzer"] = {
+            imports = {
+                granularity = {
+                    group = "module",
+                },
+                prefix = "self",
+            },
+            cargo = {
+                buildScripts = {
+                    enable = true,
+                },
+            },
+            check = {
+                command = "clippy",
+            },
+            procMacro = {
+                enable = true
+            },
+        }
+    },
 }
-lspconfig.tsserver.setup {}
+lspconfig.tsserver.setup({})
+lspconfig.zls.setup({})
