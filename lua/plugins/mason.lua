@@ -3,6 +3,10 @@ return {
     build = ":MasonUpdate",
     dependencies = {
         "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
     },
-    config = true
+    config = function()
+        require("mason").setup()
+        require("mason-lspconfig").setup()
+    end
 }
