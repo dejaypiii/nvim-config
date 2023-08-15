@@ -9,9 +9,9 @@ vim.keymap.set({ "n", "v" }, "<leader>bn", ":bn<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>bp", ":bp<cr>")
 
 -- * LSP *************************************************************************
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next)
+vim.keymap.set("n", "<leader>gh", vim.diagnostic.open_float)
+vim.keymap.set("n", "<leader>gp", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "<leader>gn", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
