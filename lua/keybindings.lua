@@ -13,8 +13,8 @@ vim.keymap.set({ "n", "v" }, "<leader>k", "<C-w>k")
 vim.keymap.set({ "n", "v" }, "<leader>l", "<C-w>l")
 
 -- * Terminal *************************************************************************
-vim.keymap.set({ "n", "v" }, "<leader>ot", ":botright 10new term<cr>")
-vim.keymap.set({ "n", "v" }, "<leader>ovt", ":botright 70vnew term<cr>")
+vim.keymap.set({ "n", "v" }, "<leader>ot", ":split<cr>:term<cr>:resize 10<cr>")
+vim.keymap.set({ "n", "v" }, "<leader>ovt", ":vsplit<cr>:term<cr>:vertical resize 70<cr>")
 vim.keymap.set({ "t" }, "<Esc>", "<C-\\><C-n>")
 
 -- * LSP *************************************************************************
