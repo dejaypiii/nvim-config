@@ -24,6 +24,8 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.wildmode = { 'longest', 'list' }
 vim.opt.mouse = "a"
 vim.opt.ttyfast = true
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 -- *******************************************************************************
 -- *  Package Manager
