@@ -45,8 +45,8 @@ lspconfig.rust_analyzer.setup({
 })
 lspconfig.tsserver.setup({})
 lspconfig.zls.setup({
-    on_attach = function(client)
-        local opts = { buffer = client.buf }
+    on_attach = function(client, bufnr)
+        local opts = { buffer = bufnr }
         vim.keymap.set("n", "<leader>rb", ":!zig build<cr>", opts)
         vim.keymap.set("n", "<leader>rt", ":!zig build test<cr>", opts)
         vim.keymap.set("n", "<leader>rd", ":!zig build run<cr>", opts)
