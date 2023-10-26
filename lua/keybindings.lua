@@ -4,6 +4,7 @@
 
 vim.keymap.set("i", "jk", "<esc>")
 vim.keymap.set("n", "<leader>ce", ":e ~/.config/nvim<cr>")
+vim.keymap.set({ "n", "v" }, "<leader>s", ":w<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>ww", "<C-w>w")
 vim.keymap.set({ "n", "v" }, "<leader>bn", ":bn<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>bp", ":bp<cr>")
