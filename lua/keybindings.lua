@@ -4,8 +4,9 @@
 
 vim.keymap.set("i", "jk", "<esc>")
 vim.keymap.set("n", "<leader>ce", ":e ~/.config/nvim<cr>")
-vim.keymap.set({ "n", "v" }, "<leader>s", ":w<cr>")
-vim.keymap.set({ "n", "v" }, "<leader>ww", "<C-w>w")
+vim.keymap.set({ "n", "v" }, "<leader>q", ":q<cr>")
+vim.keymap.set({ "n", "v" }, "<leader>w", ":w<cr>")
+vim.keymap.set({ "n", "v" }, "<leader>s", "<C-w>w")
 vim.keymap.set({ "n", "v" }, "<leader>bn", ":bn<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>bp", ":bp<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>h", "<C-w>h")
@@ -22,7 +23,7 @@ vim.keymap.set({ "t" }, "jk", "<C-\\><C-n>")
 vim.keymap.set("n", "<leader>gh", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>gp", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "<leader>gn", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<leader>Q", vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -40,9 +41,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
         vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-        vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
-        vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
-        vim.keymap.set("n", "<leader>wl", function()
+        vim.keymap.set("n", "<leader>ea", vim.lsp.buf.add_workspace_folder, opts)
+        vim.keymap.set("n", "<leader>er", vim.lsp.buf.remove_workspace_folder, opts)
+        vim.keymap.set("n", "<leader>el", function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, opts)
         vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
