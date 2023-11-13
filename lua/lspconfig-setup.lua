@@ -7,7 +7,13 @@ local on_attach = function(client)
     require("completion").on_attach(client)
 end
 -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
-lspconfig.clangd.setup({})
+lspconfig.clangd.setup({
+    on_attach = on_attach,
+    cmd = {
+        "clangd",
+        "--offset-encoding=utf-16",
+    }
+})
 lspconfig.cmake.setup({})
 lspconfig.gopls.setup({})
 lspconfig.lua_ls.setup({
@@ -20,6 +26,7 @@ lspconfig.lua_ls.setup({
         },
     },
 })
+lspconfig.powershell_es.setup({})
 lspconfig.rust_analyzer.setup({
     on_attach = on_attach,
     -- Server-specific settings. See `:help lspconfig-setup`
