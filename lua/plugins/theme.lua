@@ -1,5 +1,11 @@
 -- Gruber darker
-return { "blazkowolf/gruber-darker.nvim" }
+return {
+    "blazkowolf/gruber-darker.nvim",
+    name = "gruber-darker",
+    config = function()
+        vim.cmd.colorscheme("gruber-darker")
+    end
+}
 -- Catpuccin
 --return {
 --    "catppuccin/nvim",
