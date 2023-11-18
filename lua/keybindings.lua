@@ -3,21 +3,16 @@
 -- *******************************************************************************
 
 vim.keymap.set("i", "jk", "<esc>")
-vim.keymap.set("n", "<leader>ce", ":e ~/.config/nvim<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>q", ":q<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>w", ":w<cr>")
-vim.keymap.set({ "n", "v" }, "<leader>s", "<C-w>w")
-vim.keymap.set({ "n", "v" }, "<leader>bn", ":bn<cr>")
-vim.keymap.set({ "n", "v" }, "<leader>bp", ":bp<cr>")
+vim.keymap.set({ "n", "v" }, "L", ":bn<cr>")
+vim.keymap.set({ "n", "v" }, "H", ":bp<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>h", "<C-w>h")
 vim.keymap.set({ "n", "v" }, "<leader>j", "<C-w>j")
 vim.keymap.set({ "n", "v" }, "<leader>k", "<C-w>k")
 vim.keymap.set({ "n", "v" }, "<leader>l", "<C-w>l")
-
--- * Terminal *************************************************************************
-vim.keymap.set({ "n", "v" }, "<leader>ot", ":split<cr>:term<cr>:resize 10<cr>")
-vim.keymap.set({ "n", "v" }, "<leader>ovt", ":vsplit<cr>:term<cr>:vertical resize 70<cr>")
-vim.keymap.set({ "t" }, "jk", "<C-\\><C-n>")
+vim.keymap.set({ "n", "v" }, "<leader>s", ":split<cr>")
+vim.keymap.set({ "n", "v" }, "<leader>v", ":vsplit<cr>")
 
 -- * LSP *************************************************************************
 vim.keymap.set("n", "<leader>gh", vim.diagnostic.open_float)
