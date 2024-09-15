@@ -3,7 +3,7 @@
 -- *******************************************************************************
 
 vim.keymap.set("i", "jk", "<esc>")
-vim.keymap.set({ "n", "v" }, "<leader>q", ":q<cr>")
+vim.keymap.set({ "n", "v" }, "<leader>q", ":x<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>w", ":w<cr>")
 vim.keymap.set({ "n", "v" }, "L", ":bn<cr>")
 vim.keymap.set({ "n", "v" }, "H", ":bp<cr>")

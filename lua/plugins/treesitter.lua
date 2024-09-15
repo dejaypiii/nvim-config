@@ -17,7 +17,7 @@ return {
                 "vim",
                 "vimdoc",
                 "vue",
-                "zig",
+                "odin",
             }
         })
     end
