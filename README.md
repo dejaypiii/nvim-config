@@ -1,6 +1,6 @@
 # nvim-config
 
-A small, single-file Neovim config for C, C++, Rust, TypeScript/JavaScript, C# and Lua.
+A small, single-file Neovim config for C, C++, Rust, Odin, TypeScript/JavaScript, C# and Lua.
 It uses the plugin manager built into Neovim 0.12 (`vim.pack`), so there's no lazy.nvim/packer
 bootstrap code: everything lives in [`init.lua`](init.lua) and the plugin lockfile
 [`nvim-pack-lock.json`](nvim-pack-lock.json).
@@ -14,6 +14,7 @@ bootstrap code: everything lives in [`init.lua`](init.lua) and the plugin lockfi
 | `rg` (ripgrep), `fd` | Fast grep / file search in the picker |
 | `node` + `npm` | Mason installs `ts_ls` (typescript-language-server) through npm |
 | .NET SDK | Runs the Roslyn C# server |
+| `odin` on PATH | Odin compiler; `ols` uses it to find the core/base/vendor libraries |
 | `clangd` on PATH | C/C++ (e.g. from an LLVM install); not installed through Mason |
 | `clang-format`, `rustfmt` on PATH | C/C++ and Rust formatting (LLVM and rustup provide them) |
 | `tree-sitter` CLI + C compiler | Builds the extra Treesitter parsers: `cargo install tree-sitter-cli --locked`, plus clang or MSVC (see note) |
@@ -30,7 +31,7 @@ git clone https://github.com/dejaypiii/nvim-config.git $env:LOCALAPPDATA\nvim # 
 1. Start `nvim` and confirm the plugin install prompt. Plugins are installed at the revisions in
    `nvim-pack-lock.json`.
 2. Mason then installs, in the background (watch with `:Mason`):
-   * the language servers `rust_analyzer`, `ts_ls` and `lua_ls`;
+   * the language servers `rust_analyzer`, `ts_ls`, `lua_ls` and `ols` (Odin, includes `odinfmt`);
    * the formatters `stylua`, `prettierd` and `csharpier`;
    * the debug adapters `codelldb` and `netcoredbg`.
 
@@ -53,7 +54,7 @@ git clone https://github.com/dejaypiii/nvim-config.git $env:LOCALAPPDATA\nvim # 
 | Syntax | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) (`main` branch) | Highlighting + indent when a parser exists |
 | Git | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) + snacks git pickers | Gutter signs, stage/reset/preview hunks, blame, status/log/branches pickers, lazygit if installed |
 | Formatting | [conform.nvim](https://github.com/stevearc/conform.nvim) | Format on save (toggle `<leader>uf`), falls back to the LSP formatter |
-| Debugging | [nvim-dap](https://github.com/mfussenegger/nvim-dap) + [nvim-dap-view](https://github.com/igorlfs/nvim-dap-view) | codelldb (C/C++/Rust), netcoredbg (C#); the view opens/closes with the session |
+| Debugging | [nvim-dap](https://github.com/mfussenegger/nvim-dap) + [nvim-dap-view](https://github.com/igorlfs/nvim-dap-view) | codelldb (C/C++/Rust/Odin), netcoredbg (C#); the view opens/closes with the session |
 | Statusline | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | Mode, branch, diff, diagnostics, active LSP, filetype |
 | UI | tokyonight (`night`), [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons), snacks indent guides + notifier, rounded borders on all floats | |
 
@@ -63,6 +64,7 @@ git clone https://github.com/dejaypiii/nvim-config.git $env:LOCALAPPDATA\nvim # 
 | --- | --- | --- |
 | C / C++ | `clang-format` (reads your `.clang-format`) | System PATH (LLVM) |
 | Rust | `rustfmt` | rustup |
+| Odin | `odinfmt` (reads your `odinfmt.json`) | Mason (bundled with `ols`) |
 | Lua | `stylua` | Mason |
 | JS / TS / JSX / TSX, JSON, CSS, HTML, YAML, Markdown | `prettierd` (or `prettier` if present) | Mason |
 | C# | `csharpier` | Mason |
@@ -76,6 +78,7 @@ git clone https://github.com/dejaypiii/nvim-config.git $env:LOCALAPPDATA\nvim # 
 | --- | --- | --- |
 | C / C++ | codelldb | Path to the executable (build with debug info first, e.g. `-g`) |
 | Rust | codelldb | Executable under `target/debug/` (`cargo build` first) |
+| Odin | codelldb | Path to the executable (`odin build . -debug` first) |
 | C# | netcoredbg | The `.dll` under `bin/Debug/...` (`dotnet build` first) |
 
 > On Windows, codelldb reads MSVC `.pdb` debug info, but its support is more limited than with
@@ -87,6 +90,7 @@ git clone https://github.com/dejaypiii/nvim-config.git $env:LOCALAPPDATA\nvim # 
 | --- | --- | --- |
 | C / C++ | `clangd` (`--background-index --clang-tidy --header-insertion=iwyu`) | System PATH (LLVM) |
 | Rust | `rust_analyzer` | Mason |
+| Odin | `ols` (reads your `ols.json`) | Mason |
 | TypeScript / JavaScript | `ts_ls` | Mason (npm) |
 | Lua | `lua_ls` (knows the `vim` and `Snacks` globals) | Mason |
 | C# | `roslyn` | Mason, from the Crashdummyy registry (`:MasonInstall roslyn`). Open a folder that contains a `.sln`/`.csproj`. |
@@ -101,7 +105,7 @@ Mason didn't install it.
 ### Treesitter
 
 Neovim ships parsers for C, Lua, Markdown, Vim script and Vimdoc. If the `tree-sitter` CLI is on PATH,
-`init.lua` also installs cpp, rust, typescript, tsx, javascript, c_sharp, json, yaml and toml.
+`init.lua` also installs cpp, rust, odin, typescript, tsx, javascript, c_sharp, json, yaml and toml.
 Without the CLI those filetypes fall back to regex highlighting; nothing breaks.
 
 > **Windows:** don't install the CLI with `npm i -g tree-sitter-cli`. npm puts an extensionless `tree-sitter`

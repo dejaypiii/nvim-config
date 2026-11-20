@@ -5,7 +5,7 @@
 --
 --  External tools you want on PATH:
 --    git, ripgrep (rg), fd, a Nerd Font in your terminal,
---    node/npm (Mason installs ts_ls through npm), .NET SDK (C#),
+--    node/npm (Mason installs ts_ls through npm), .NET SDK (C#), odin (Odin),
 --    optional: tree-sitter CLI + a C compiler (for extra Treesitter parsers)
 --
 --  First start: Neovim asks to install the plugins -> confirm.
@@ -135,6 +135,7 @@ require('conform').setup({
     c = { 'clang_format' },
     cpp = { 'clang_format' },
     rust = { 'rustfmt' },
+    odin = { 'odinfmt' }, -- ships with the Mason 'ols' package
     lua = { 'stylua' },
     cs = { 'csharpier' },
     javascript = web, javascriptreact = web, typescript = web, typescriptreact = web,
@@ -194,11 +195,11 @@ require('mason').setup({
 -- (rust_analyzer stays here: the rustup proxy fails unless you run
 --  'rustup component add rust-analyzer'.)
 require('mason-lspconfig').setup({
-  ensure_installed = { 'rust_analyzer', 'ts_ls', 'lua_ls' },
+  ensure_installed = { 'rust_analyzer', 'ts_ls', 'lua_ls', 'ols' },
 })
 
 -- Enable explicitly too, so servers found on PATH (not via Mason) start as well
-vim.lsp.enable({ 'clangd', 'rust_analyzer', 'ts_ls', 'lua_ls' })
+vim.lsp.enable({ 'clangd', 'rust_analyzer', 'ts_ls', 'lua_ls', 'ols' })
 
 -- Formatters and debug adapters (mason-lspconfig only handles language servers)
 local mason_tools = { 'stylua', 'prettierd', 'csharpier', 'codelldb', 'netcoredbg' }
@@ -225,7 +226,7 @@ vim.diagnostic.config({
 -- -----------------------------------------------------------------------------
 if vim.fn.executable('tree-sitter') == 1 then
   require('nvim-treesitter').install({
-    'cpp', 'rust', 'typescript', 'tsx', 'javascript', 'c_sharp', 'json', 'yaml', 'toml',
+    'cpp', 'rust', 'odin', 'typescript', 'tsx', 'javascript', 'c_sharp', 'json', 'yaml', 'toml',
   })
 end
 
@@ -237,9 +238,15 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+-- Odin uses tabs (odinfmt default and the core library style)
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'odin',
+  callback = function(ev) vim.bo[ev.buf].expandtab = false end,
+})
+
 -- -----------------------------------------------------------------------------
 -- Debugging (nvim-dap + nvim-dap-view)
---   codelldb  : C, C++, Rust      netcoredbg : C#      (both installed by Mason)
+--   codelldb  : C, C++, Rust, Odin   netcoredbg : C#   (both installed by Mason)
 -- -----------------------------------------------------------------------------
 local dap = require('dap')
 require('dap-view').setup({ auto_toggle = true }) -- opens/closes with the session
@@ -274,6 +281,8 @@ dap.configurations.cpp = dap.configurations.c
 dap.configurations.rust = {
   vim.tbl_extend('force', dap.configurations.c[1], { program = ask_path('Executable: ', 'target/debug/') }),
 }
+-- Build with 'odin build . -debug' first so the executable has debug info
+dap.configurations.odin = dap.configurations.c
 dap.configurations.cs = {
   {
     name = 'Launch .NET dll',
