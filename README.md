@@ -205,6 +205,7 @@ Prefer `<CR>` or `<Tab>` to accept? Change `keymap = { preset = 'default' }` to 
 | Key | Action |
 | --- | --- |
 | `<Esc>` | Clear search highlight |
+| `jk` (insert mode) | Leave insert mode |
 
 ## Maintaining & updating
 

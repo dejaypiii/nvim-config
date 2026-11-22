@@ -368,3 +368,4 @@ map({ 'n', 'x' }, '<leader>dw', function() require('dap-view').add_expr() end, '
 --   <C-o>/<C-i>  jump back/forward
 
 map('n', '<Esc>', '<cmd>nohlsearch<cr>', 'Clear search highlight')
+map('i', 'jk', '<Esc>', 'Leave insert mode')
